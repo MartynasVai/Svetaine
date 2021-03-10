@@ -31,8 +31,10 @@ namespace Svetaine
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)///IdentityUser
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+           /// .AddRoles<IdentityRole>()//is asp.net forums
+             ////   .AddEntityFrameworkStores<ApplicationDbContext>();//
             services.AddRazorPages();
 
             services.Configure<IdentityOptions>(options =>
