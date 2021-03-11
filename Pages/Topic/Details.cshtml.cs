@@ -35,8 +35,8 @@ namespace Svetaine.Pages.Topic
 
             Topics = await _context.Topics.FirstOrDefaultAsync(m => m.ID == id);
 
-            ThreadL = await _context.Threads.ToListAsync();
-            
+            //ThreadL = await _context.Threads.ToListAsync();
+            ThreadL = List(id);
 
             if (Topics == null)
             {
@@ -44,5 +44,18 @@ namespace Svetaine.Pages.Topic
             }
             return Page();
         }
+
+        private List<Threads> List(int? id)//metodas kuris grazina irasu sarasa sioje(id) temoje
+        {
+            var threads = from m in _context.Threads
+                          select m;
+
+            threads = threads.Where(s => s.TopicID == id);
+
+            return threads.ToList();
+           // throw new NotImplementedException();
+        }
+
+
     }
 }
