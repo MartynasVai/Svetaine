@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Svetaine.Data;
 using Svetaine.Models;
 
-namespace Svetaine.Pages.Topic
+namespace Svetaine.Pages.Topic.Thread
 {
     public class DetailsModel : PageModel
     {
@@ -19,12 +19,7 @@ namespace Svetaine.Pages.Topic
             _context = context;
         }
 
-        public Topics Topics { get; set; }
-
-        public Threads Thread { get; set; }
-
-      //  public IList<Topics> TopicsL { get; set; }
-        public IList<Threads> ThreadL { get; set; }
+        public Threads Threads { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -33,12 +28,9 @@ namespace Svetaine.Pages.Topic
                 return NotFound();
             }
 
-            Topics = await _context.Topics.FirstOrDefaultAsync(m => m.ID == id);
+            Threads = await _context.Threads.FirstOrDefaultAsync(m => m.ID == id);
 
-            ThreadL = await _context.Threads.ToListAsync();
-            
-
-            if (Topics == null)
+            if (Threads == null)
             {
                 return NotFound();
             }

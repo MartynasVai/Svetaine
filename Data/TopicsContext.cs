@@ -15,5 +15,9 @@ namespace Svetaine.Data
         }
 
         public DbSet<Svetaine.Models.Topics> Topics { get; set; }
+
+        public DbSet<Svetaine.Models.Threads> Threads { get; set; }
+
+
     }
 }

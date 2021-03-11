@@ -30,3 +30,39 @@
     <a asp-page="./Edit" asp-route-id="@Model.Topics.ID">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>
+<body>
+
+
+<hr />
+
+    @foreach (var item in Model.ThreadL)
+    {
+        @if (item.TopicID == Model.Topics.ID)
+        {
+<div>
+    <div>
+        @Html.DisplayFor(modelItem => item.Date)
+    </div>
+    <br />
+    <div>
+        @Html.DisplayFor(modelItem => item.Text)
+
+    </div>
+
+
+    <div>
+        <a asp-page="./Thread/Edit" asp-route-id="@item.ID">Edit</a> |
+        <a asp-page="./Thread/Details" asp-route-id="@item.ID">Details</a> |
+    </div>
+</div>
+<hr />
+        }
+    }
+
+
+
+
+
+
+
+</body>
