@@ -7,6 +7,18 @@
     "mssql2": {
       "type": "mssql.local",
       "connectionId": "SvetaineContextConnection"
+    },
+    "mssql3": {
+      "type": "mssql.local",
+      "connectionId": "SvetaineContext"
+    },
+    "mssql4": {
+      "type": "mssql.local",
+      "connectionId": "SvetaineDBContext"
+    },
+    "mssql5": {
+      "type": "mssql.local",
+      "connectionId": "TopicsContext"
     }
   }
 }

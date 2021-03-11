@@ -31,9 +31,9 @@ namespace Svetaine
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)///IdentityUser
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-           /// .AddRoles<IdentityRole>()//is asp.net forums
+           /// .AddRoles<IdentityRole>()
              ////   .AddEntityFrameworkStores<ApplicationDbContext>();//
             services.AddRazorPages();
 
@@ -68,6 +68,16 @@ namespace Svetaine
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ApplicationDBContext")));
+
+            services.AddDbContext<TopicsContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("TopicsContext")));
+
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

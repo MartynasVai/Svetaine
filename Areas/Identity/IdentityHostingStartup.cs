@@ -16,11 +16,11 @@ namespace Svetaine.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddDbContext<SvetaineContext>(options =>
+                services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("SvetaineContextConnection")));
 
-              //  services.AddDefaultIdentity<SvetaineUser>(options => options.SignIn.RequireConfirmedAccount = true)//uzkomentuoti, nes kitaip meta program.cs unhandled ecxeption
+              //  services.AddDefaultIdentity<SvetaineUser>(options => options.SignIn.RequireConfirmedAccount = true)
                //     .AddEntityFrameworkStores<SvetaineContext>();
             });
         }
