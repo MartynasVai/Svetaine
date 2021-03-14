@@ -1,0 +1,29 @@
+﻿@page
+@model Svetaine.Pages.Topic.Thread.DeleteThreadModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@if (Model.UserID != Model.Thread.UserID)
+{
+    <h1 style="color:red"> Permission denied</h1>
+    <a asp-page="./Details?id=@Model.Thread.ID">Back to Thread</a>
+
+}
+else
+{
+    <h1 style="color:red"> Delete thread</h1>
+
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    <a asp-page="./Details?id=@Model.Thread.ID">Back to Thread</a>
+
+
+
+
+
+
+
+
+}
+

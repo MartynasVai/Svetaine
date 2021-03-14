@@ -7,12 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Svetaine.Data;
 using Svetaine.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+
+
 
 namespace Svetaine.Pages.Topic
 {
     public class DetailsModel : PageModel
     {
         private readonly Svetaine.Data.TopicsContext _context;
+
 
         public DetailsModel(Svetaine.Data.TopicsContext context)
         {
@@ -21,13 +26,17 @@ namespace Svetaine.Pages.Topic
 
         public Topics Topics { get; set; }
 
-        public Threads Thread { get; set; }
+        // public Threads Thread { get; set; }
 
-      //  public IList<Topics> TopicsL { get; set; }
+        //  public IList<Topics> TopicsL { get; set; }
         public IList<Threads> ThreadL { get; set; }
+
+        public string UserID {get; set;}
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (id == null)
             {
                 return NotFound();
@@ -35,14 +44,18 @@ namespace Svetaine.Pages.Topic
 
             Topics = await _context.Topics.FirstOrDefaultAsync(m => m.ID == id);
 
-            //ThreadL = await _context.Threads.ToListAsync();
-            ThreadL = List(id);
+            
+            ThreadL = List(id);//postu sarasas su irasais
+
 
             if (Topics == null)
             {
                 return NotFound();
             }
             return Page();
+
+
+
         }
 
         private List<Threads> List(int? id)//metodas kuris grazina irasu sarasa sioje(id) temoje
@@ -52,9 +65,14 @@ namespace Svetaine.Pages.Topic
 
             threads = threads.Where(s => s.TopicID == id);
 
+            
+
             return threads.ToList();
-           // throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
+
+
+
 
 
     }

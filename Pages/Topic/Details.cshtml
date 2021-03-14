@@ -1,5 +1,7 @@
 ﻿@page
 @model Svetaine.Pages.Topic.DetailsModel
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Details";
@@ -29,33 +31,50 @@
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Topics.ID">Edit</a> |
     <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Thread/NewThread" asp-route-id="@Model.Topics.ID">New Thread</a>
 </div>
 <body>
 
 
-<hr />
+    <hr />
 
     @foreach (var item in Model.ThreadL)
     {
 
-<div>
-    <div>
-        @Html.DisplayFor(modelItem => item.Date)
-    </div>
-    <br />
-    <div>
-        @Html.DisplayFor(modelItem => item.Text)
+        <div>
+            <div>
+                <p>
+                    <small>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </small>
+                   @if((item.UserID)== Model.UserID) 
+                   { 
+                   <strong>Author
+                       </strong>
 
-    </div>
+               
+                   
+                   
+                   }
 
 
-    <div>
-        <a asp-page="./Thread/Edit" asp-route-id="@item.ID">Edit</a> |
-        <a asp-page="./Thread/Details" asp-route-id="@item.ID">Details</a> |
-    </div>
-</div>
-<hr />
-        
+                </p>
+            </div>
+
+            <br />
+            <div style="width : 100%">
+                @Html.DisplayFor(modelItem => item.Text)
+
+            </div>
+
+
+            <div>
+                <a asp-page="./Thread/Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Thread/Details" asp-route-id="@item.ID">Details</a> |
+            </div>
+        </div>
+        <hr />
+
     }
 
 
