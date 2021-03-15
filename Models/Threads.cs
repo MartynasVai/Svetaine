@@ -10,7 +10,7 @@ namespace Svetaine.Models
         public string UserID { get; set; }//naudotojas kuris sukure irasa
 
         [DataType(DataType.Text)]
-        public string Text { get; set; }//forumo temos pavadinimas
+        public string Text { get; set; }//iraso tekstas
         public bool Pinned { get; set; }//Ar prisegtas irasas
         public bool Locked { get; set; }//ar uzrakintas( ar galima rasyti atsakymus )
 

@@ -35,20 +35,20 @@ namespace Svetaine.Pages.Topic
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);//randa user id
 
-            if (id == null)
+            if (id == null)//jeigu id nenurodytas
             {
                 return NotFound();
             }
 
-            Topics = await _context.Topics.FirstOrDefaultAsync(m => m.ID == id);
+            Topics = await _context.Topics.FirstOrDefaultAsync(m => m.ID == id);//randa tema pagal id
 
             
             ThreadL = List(id);//postu sarasas su irasais
 
 
-            if (Topics == null)
+            if (Topics == null)//jeigu nerado temos pagal id
             {
                 return NotFound();
             }

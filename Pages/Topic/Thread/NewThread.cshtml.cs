@@ -54,7 +54,7 @@ namespace Svetaine.Pages.Topic.Thread
                 return Page();
             }
 
-
+            
             _context.Threads.Add(Threads);
 
             Threads.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);//nustato iraso sukurejo id
@@ -66,10 +66,13 @@ namespace Svetaine.Pages.Topic.Thread
             Threads.Pinned = false;//
             
         await _context.SaveChangesAsync();
+            
+           
 
+           
 
+            return RedirectToPage("./Details", new { id = Threads.ID, });//nusiuncia vartotoja i sukurta irasa
 
-            return RedirectToPage("./Details?id=",id);
         }
 
 
