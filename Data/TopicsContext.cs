@@ -18,6 +18,8 @@ namespace Svetaine.Data
 
         public DbSet<Svetaine.Models.Threads> Threads { get; set; }
 
+        public DbSet<Svetaine.Models.Replies> Replies { get; set; }
+
 
     }
 }

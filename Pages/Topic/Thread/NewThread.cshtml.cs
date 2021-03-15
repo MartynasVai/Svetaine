@@ -49,9 +49,9 @@ namespace Svetaine.Pages.Topic.Thread
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || id == null)
             {
-                return Page();
+                return RedirectToPage("./NewThread", new { id = id, });
             }
 
             

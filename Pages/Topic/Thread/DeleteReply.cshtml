@@ -1,26 +1,28 @@
 ﻿@page
-@model Svetaine.Pages.Topic.Thread.DeleteThreadModel
+@model Svetaine.Pages.Topic.Thread.Reply.DeleteReplyModel
+@{
+}
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-@if (Model.UserID != Model.Thread.UserID)
+@if (Model.UserID != Model.Reply.UserID)
 {
     <h1 style="color:red"> Permission denied</h1>
 
 }
 else
 {
-    <h1 style="color:red"> Delete thread</h1>
+    <h1 style="color:red"> Delete Reply</h1>
     <div>
         <hr />
         <dl class="row">
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Thread.Date)
+                @Html.DisplayFor(model => model.Reply.Date)
             </dd>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Thread.Text)
+                @Html.DisplayFor(model => model.Reply.Text)
             </dd>
 
         </dl>
@@ -30,6 +32,5 @@ else
     </form>
 
 }
-<a asp-page="./Details" asp-route-id="@Model.Thread.ID">Back to thread</a>
+<a asp-page="./Details" asp-route-id="@Model.Reply.ThreadID">Back to thread</a>
 <hr />
-<a asp-page="/Topic/Details" asp-route-id="@Model.Thread.TopicID">Back to Topic</a>

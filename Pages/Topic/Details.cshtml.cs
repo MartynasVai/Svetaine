@@ -45,7 +45,7 @@ namespace Svetaine.Pages.Topic
             Topics = await _context.Topics.FirstOrDefaultAsync(m => m.ID == id);//randa tema pagal id
 
             
-            ThreadL = List(id);//postu sarasas su irasais
+            ThreadL = List(id);//irasu sarasas pagal id
 
 
             if (Topics == null)//jeigu nerado temos pagal id

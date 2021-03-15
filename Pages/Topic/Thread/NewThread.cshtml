@@ -11,12 +11,13 @@
 
 <h1>New Thread</h1>
 <hr />
-        <form method="post">
-            <div>
-                <label asp-for="Threads.Text" class="control-label"></label>
-                <textarea asp-for="Threads.Text" class="form-control" style="font-size:18pt;height:420px;width:100%;"> </textarea>
-                <span asp-validation-for="Threads.Text" class="text-danger"></span>
-                <input type="submit" value="Create" class="btn btn-primary" onclick= "history.go(-1)" />
-            </div>
-        </form>
-            
+<a asp-page="/Topic/Details" asp-route-id="@Model.Topics.ID">Back to Topic</a>
+<hr />
+<form method="post" style="width:90%">
+    <div>
+        <label asp-for="Threads.Text" class="control-label"></label>
+        <textarea asp-for="Threads.Text" class="form-control" style="font-size:18pt;height:420px;width:100%;"> </textarea>
+        <span asp-validation-for="Threads.Text" class="text-danger"></span>
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>

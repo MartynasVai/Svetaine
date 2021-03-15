@@ -4,14 +4,12 @@
 @inject UserManager<IdentityUser> UserManager
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Topic";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
 
 <div>
-    <h4>Topics</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -29,8 +27,6 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Topics.ID">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
     <a asp-page="./Thread/NewThread" asp-route-id="@Model.Topics.ID">New Thread</a>
 </div>
 <body>
@@ -49,12 +45,9 @@
                     </small>
                    @if((item.UserID)== Model.UserID) 
                    { 
-                   <strong>Author
-                       </strong>
-
-               
-                   
-                   
+                <strong style="color:darkred">
+                    <a asp-page="./Thread/DeleteThread" asp-route-id="@item.ID" style="color:darkred">Delete</a>
+                </strong>
                    }
 
 
@@ -70,7 +63,6 @@
 
 
             <div>
-                <a asp-page="./Thread/Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Thread/Details" asp-route-id="@item.ID">Details</a> |
             </div>
         </div>
