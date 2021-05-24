@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Svetaine.Data;
 using Svetaine.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Svetaine.Pages.Topic.Thread
 {
+    [Authorize(Roles = "Moderator")]
     public class EditModel : PageModel
     {
         private readonly Svetaine.Data.TopicsContext _context;

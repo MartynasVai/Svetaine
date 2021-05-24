@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Svetaine.Data;
 using Svetaine.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Svetaine.Pages.Topic
 {
+    [Authorize(Roles = "Moderator")]
     public class CreateModel : PageModel
     {
         private readonly Svetaine.Data.TopicsContext _context;
@@ -18,7 +20,7 @@ namespace Svetaine.Pages.Topic
         {
             _context = context;
         }
-
+        
         public IActionResult OnGet()
         {
             return Page();

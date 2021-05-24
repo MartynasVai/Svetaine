@@ -33,7 +33,7 @@
                 <small>
                     @Html.DisplayFor(modelItem => item.Date)
                 </small>
-                @if ((item.UserID) == Model.UserID)
+                @if ((item.UserID) == Model.UserID || (Model.User.IsInRole("Moderator") == true))
                 {
             <strong>
                 <a asp-page="./DeleteReply" asp-route-id="@item.ID" style="color:darkred">Delete reply</a>

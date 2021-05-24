@@ -10,6 +10,7 @@ using Svetaine.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
+
 namespace Svetaine.Pages.Topic.Thread
 {
     public class DeleteThreadModel : PageModel

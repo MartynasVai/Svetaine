@@ -7,7 +7,7 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-@if (Model.UserID != Model.Reply.UserID)
+@if (Model.UserID != Model.Reply.UserID || (Model.User.IsInRole("Moderator") == false))
 {
     <h1 style="color:red"> Permission denied</h1>
 

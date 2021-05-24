@@ -52,7 +52,7 @@ namespace Svetaine.Pages.Topic.Thread.Reply
 
 
 
-            if (UserID == Reply.UserID)
+            if (UserID == Reply.UserID  || (User.IsInRole("Moderator") == true))
             { //patikrina ar iraso kurejas trina irasa
                 _context.Replies.Remove(Reply);
                 _context.SaveChanges();

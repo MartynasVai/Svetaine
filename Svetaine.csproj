@@ -33,8 +33,4 @@
     <None Include="Pages\Topic\Thread\DeleteReply.cshtml" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Roles\" />
-  </ItemGroup>
-
 </Project>

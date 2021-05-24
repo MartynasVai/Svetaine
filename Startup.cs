@@ -37,6 +37,7 @@ namespace Svetaine
            
              ////   .AddEntityFrameworkStores<ApplicationDbContext>();//
             services.AddRazorPages();
+            services.AddControllersWithViews();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -104,10 +105,16 @@ namespace Svetaine
             app.UseAuthentication();
             app.UseAuthorization();
 
+
             app.UseEndpoints(endpoints =>
             {
+                
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
         }
     }
 }
