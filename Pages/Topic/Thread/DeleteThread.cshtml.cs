@@ -42,6 +42,7 @@ namespace Svetaine.Pages.Topic.Thread
             }
 
             UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);//user id
+            
 
             return Page();
         }
@@ -58,7 +59,7 @@ namespace Svetaine.Pages.Topic.Thread
 
             RepliesL = List(id);//atsakymu sarasas pagal id
 
-            if (UserID==Thread.UserID) { //patikrina ar iraso kurejas trina irasa
+            if (UserID==Thread.UserID || User.IsInRole("Moderator")) { //patikrina ar iraso kurejas trina irasa
                 _context.Replies.RemoveRange(RepliesL);
                 _context.Threads.Remove(Thread);
                 _context.SaveChanges();
