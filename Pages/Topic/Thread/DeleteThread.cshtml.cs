@@ -29,21 +29,26 @@ namespace Svetaine.Pages.Topic.Thread
             
 
 
-            if (id == null)
+            if (id == null)//jei id nenurodytas
             {
                 return NotFound();
             }
 
-            Thread = await _context.Threads.FirstOrDefaultAsync(m => m.ID == id);
+            Thread = await _context.Threads.FirstOrDefaultAsync(m => m.ID == id);//randa irasa
 
-            UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (Thread == null)//jei nerado
+            {
+                return NotFound();
+            }
+
+            UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);//user id
 
             return Page();
         }
         public async Task<IActionResult> OnPostAsync(int? id)
         {
 
-            UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);//user id
 
             Thread = await _context.Threads.FirstOrDefaultAsync(m => m.ID == id);
 
@@ -57,7 +62,7 @@ namespace Svetaine.Pages.Topic.Thread
                 _context.Replies.RemoveRange(RepliesL);
                 _context.Threads.Remove(Thread);
                 _context.SaveChanges();
-                return RedirectToPage("/Topic/Details", new { id = Thread.TopicID, });
+                return RedirectToPage("/Topic/Details", new { id = Thread.TopicID, });//grazina atgal i tema kurioje buvo irasas
             }
 
 
@@ -65,7 +70,7 @@ namespace Svetaine.Pages.Topic.Thread
 
             return Page();
         }
-        private List<Replies> List(int? id)//metodas kuris grazina irasu sarasa sioje(id) temoje
+        private List<Replies> List(int? id)//metodas kuris grazina atsakymu sarasa siame irase
         {
             var Replies = from m in _context.Replies
                           select m;

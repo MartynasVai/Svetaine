@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Svetaine.Models
 {
-    public class Replies
+    public class Replies//atsakymai i irasus
     {
         public int ID { get; set; }
         public int ThreadID { get; set; }//irasas kuriame sukurtas atsakymas

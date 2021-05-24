@@ -51,14 +51,14 @@ namespace Svetaine.Pages.Topic.Thread
         {
             if (!ModelState.IsValid || id == null)
             {
-                return RedirectToPage("./NewThread", new { id = id, });
+                return RedirectToPage("./NewThread", new { id = id, });//Jeigu kazkas netaip perkrauna puslapi
             }
 
             
             _context.Threads.Add(Threads);
 
             Threads.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);//nustato iraso sukurejo id
-            Threads.TopicID = id.GetValueOrDefault();//GetValueOrDefault() metodas nes id yra int? o ne int
+            Threads.TopicID = id.GetValueOrDefault();//GetValueOrDefault() nustato temos id
             Threads.Date = DateTime.Now;//kada irasas sukurtas
 
             //situs du adminas gales settint kad uzrakint arba prisegti irasa
