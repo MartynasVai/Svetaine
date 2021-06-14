@@ -5,7 +5,7 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-@if (Model.UserID != Model.Thread.UserID || (Model.User.IsInRole("Moderator")==false))//patikrina ar user yra autorius arba moderatorius
+@if (Model.UserID != Model.Thread.UserID && (Model.User.IsInRole("Moderator")==false))//patikrina ar user yra autorius arba moderatorius
 {
     <h1 style="color:red"> Permission denied</h1>
 

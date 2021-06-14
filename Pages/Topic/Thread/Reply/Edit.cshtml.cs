@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Svetaine.Data;
 using Svetaine.Models;
 using Microsoft.AspNetCore.Authorization;
-
+using System.Security.Claims;
 
 namespace Svetaine.Pages.Topic.Thread.Reply
 {
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "User")]
     public class EditModel : PageModel
     {
         private readonly Svetaine.Data.TopicsContext _context;
@@ -26,6 +26,10 @@ namespace Svetaine.Pages.Topic.Thread.Reply
         [BindProperty]
         public Replies Replies { get; set; }
 
+
+
+        public string UserID { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -34,6 +38,7 @@ namespace Svetaine.Pages.Topic.Thread.Reply
             }
 
             Replies = await _context.Replies.FirstOrDefaultAsync(m => m.ID == id);
+            UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (Replies == null)
             {
@@ -69,7 +74,8 @@ namespace Svetaine.Pages.Topic.Thread.Reply
                 }
             }
 
-            return RedirectToPage("./Index");
+
+            return RedirectToPage("/Topic/Thread/Details", new { id = Replies.ThreadID, });//grazina i irasa
         }
 
         private bool RepliesExists(int id)

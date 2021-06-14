@@ -6,54 +6,75 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+
+
+@if (Model.UserID != Model.Threads.UserID && (Model.User.IsInRole("Moderator") == false))//patikrina ar user yra autorius arba moderatorius
+{
+
+
+<h1 style="color:red"> Permission denied</h1>
+
+            }
+            else { 
+
 <h1>Edit</h1>
 
 <h4>Threads</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Threads.ID" />
-            <div class="form-group">
-                <label asp-for="Threads.TopicID" class="control-label"></label>
-                <input asp-for="Threads.TopicID" class="form-control" />
-                <span asp-validation-for="Threads.TopicID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Threads.UserID" class="control-label"></label>
-                <input asp-for="Threads.UserID" class="form-control" />
-                <span asp-validation-for="Threads.UserID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Threads.Text" class="control-label"></label>
-                <input asp-for="Threads.Text" class="form-control" />
-                <span asp-validation-for="Threads.Text" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Threads.Pinned" /> @Html.DisplayNameFor(model => model.Threads.Pinned)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Threads.Locked" /> @Html.DisplayNameFor(model => model.Threads.Locked)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Threads.Date" class="control-label"></label>
-                <input asp-for="Threads.Date" class="form-control" />
-                <span asp-validation-for="Threads.Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+
+
+<form method="post" style="width:100%">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Threads.ID" />
+
+
+    <input type="hidden" asp-for="Threads.TopicID" />
+
+    <input type="hidden" asp-for="Threads.UserID" />
+
+
+    <div class="form-group">
+        <label asp-for="Threads.Text" class="control-label"></label>
+        <textarea asp-for="Threads.Text" class="form-control" style="font-size:18pt;height:200px;width:100%;"> </textarea>
+        <span asp-validation-for="Threads.Text" class="text-danger"></span>
     </div>
-</div>
+    @if (Model.User.IsInRole("Moderator") == true)
+    {
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="Threads.Pinned" /> @Html.DisplayNameFor(model => model.Threads.Pinned)
+            </label>
+        </div>
+
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="Threads.Locked" /> @Html.DisplayNameFor(model => model.Threads.Locked)
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Threads.Date" class="control-label"></label>
+            <input asp-for="Threads.Date" class="form-control" />
+            <span asp-validation-for="Threads.Date" class="text-danger"></span>
+        </div>
+    }
+    else
+    {
+        <input type="hidden" asp-for="Threads.Date" />
+        <input type="hidden" asp-for="Threads.Pinned" />
+        <input type="hidden" asp-for="Threads.Locked" />
+    }
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+}
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Details" asp-route-id="@Model.Threads.ID">Back to Thread </a>
+    <br />
+    <a asp-page="/Topic/Details" asp-route-id="@Model.Threads.TopicID">Back to Topic</a>
 </div>
 
 @section Scripts {

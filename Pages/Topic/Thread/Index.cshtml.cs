@@ -21,11 +21,19 @@ namespace Svetaine.Pages.Topic.Thread
             _context = context;
         }
 
+        List<Threads> Tlist = new List<Threads>();
         public IList<Threads> Threads { get;set; }
+
 
         public async Task OnGetAsync()
         {
-            Threads = await _context.Threads.ToListAsync();
+            Tlist = await _context.Threads.ToListAsync();//gauna irasu sarasa 
+            Threads = Tlist.OrderByDescending(o => o.Pinned).ToList();//pinned sarasai perkeliami i prieki
+
+            //Threads = await _context.Threads.ToListAsync();
+
+
+
         }
     }
 }

@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Svetaine.Data;
 using Svetaine.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Svetaine.Pages.Topic.Thread.Reply
 {
+    [Authorize]
     public class DetailsModel : PageModel
     {
         private readonly Svetaine.Data.TopicsContext _context;
@@ -70,7 +72,7 @@ namespace Svetaine.Pages.Topic.Thread.Reply
             return replies.ToList();
             // throw new NotImplementedException();
         }
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int? id)//prideti tikrinima
         {
             Threads = await _context.Threads.FirstOrDefaultAsync(m => m.ID == id);
 

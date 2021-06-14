@@ -9,10 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Svetaine.Data;
 using Svetaine.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Svetaine.Pages.Topic.Thread
 {
-    [Authorize(Roles = "Moderator")]
+    [Authorize(Roles = "User")]
     public class EditModel : PageModel
     {
         private readonly Svetaine.Data.TopicsContext _context;
@@ -25,6 +26,8 @@ namespace Svetaine.Pages.Topic.Thread
         [BindProperty]
         public Threads Threads { get; set; }
 
+        public string UserID { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -33,6 +36,8 @@ namespace Svetaine.Pages.Topic.Thread
             }
 
             Threads = await _context.Threads.FirstOrDefaultAsync(m => m.ID == id);
+
+            UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (Threads == null)
             {
@@ -68,7 +73,7 @@ namespace Svetaine.Pages.Topic.Thread
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { id = Threads.ID, });
         }
 
         private bool ThreadsExists(int id)

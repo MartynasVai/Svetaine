@@ -1,7 +1,7 @@
 ﻿@model List<Svetaine.Models.ManageUserRolesViewModel>
 @{
     ViewData["Title"] = "Manage";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 <form method="post">
     <div class="card">
@@ -26,7 +26,7 @@
         <div class="card-footer">
             <input type="submit" value="Update" class="btn btn-primary"
                    style="width:auto" />
-            <a asp-action="EditUser" asp-route-id="@ViewBag.userId"
+            <a asp-action="Index"
                class="btn btn-primary" style="width:auto">Cancel</a>
         </div>
     </div>

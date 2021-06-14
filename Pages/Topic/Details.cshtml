@@ -9,23 +9,7 @@
 }
 
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Topics.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Topics.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Topics.Priority)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Topics.Priority)
-        </dd>
-    </dl>
-</div>
+<h2>Threads</h2>
 <div>
     <a asp-page="./Thread/NewThread" asp-route-id="@Model.Topics.ID">New Thread</a>
 </div>
@@ -37,36 +21,40 @@
     @foreach (var item in Model.ThreadL)
     {
 
-        <div>
-            <div>
-                <p>
-                    <small>
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </small>
-                   @if((item.UserID)== Model.UserID) 
-                   { 
-                <strong style="color:darkred">
-                    <a asp-page="./Thread/DeleteThread" asp-route-id="@item.ID" style="color:darkred">Delete</a>
-                </strong>
-                   }
+<div style="border:1px solid silver;">
+    <p>
+        @if (item.Pinned == true)
+        {
+            <span class="glyphicon glyphicon-pushpin"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pin-fill" viewBox="0 0 16 16">
+                <path d="M4.146.146A.5.5 0 0 1 4.5 0h7a.5.5 0 0 1 .5.5c0 .68-.342 1.174-.646 1.479-.126.125-.25.224-.354.298v4.431l.078.048c.203.127.476.314.751.555C12.36 7.775 13 8.527 13 9.5a.5.5 0 0 1-.5.5h-4v4.5c0 .276-.224 1.5-.5 1.5s-.5-1.224-.5-1.5V10h-4a.5.5 0 0 1-.5-.5c0-.973.64-1.725 1.17-2.189A5.921 5.921 0 0 1 5 6.708V2.277a2.77 2.77 0 0 1-.354-.298C4.342 1.674 4 1.179 4 .5a.5.5 0 0 1 .146-.354z" />
+            </svg>
+    }
+        @if (item.Locked == true)
+        {
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+    </svg>
+        }
+        <small>
+            @Html.DisplayFor(modelItem => item.Date)
+        </small>
+        @if ((item.UserID) == Model.UserID || (Model.User.IsInRole("Moderator") == true))
+        {
+            <strong style="color:darkred">
+                <a asp-page="./Thread/DeleteThread" asp-route-id="@item.ID" style="color:darkred">Delete</a>|
+                <a asp-page="./Thread/Edit" asp-route-id="@item.ID">Edit</a>
+            </strong>
+        }
 
-
-                </p>
-            </div>
-
-            <br />
-            <div style="width : 100%; white-space: pre-line">
-                @* White space atributas, kad rodytu teksta su naujomis eilutemis *@
-                        @Html.DisplayFor(modelItem => item.Text)
-
-                    </div>
-
-
-            <div>
-                <a asp-page="./Thread/Details" asp-route-id="@item.ID">Details</a> |
-            </div>
-        </div>
+        <a asp-page="./Thread/Details" asp-route-id="@item.ID">View Thread</a> |
         <hr />
+        <p style="width : 100%; white-space: pre-line; padding : 0px 1% 0px" ;>
+            @* White space atributas, kad rodytu teksta su naujomis eilutemis *@
+            @Html.DisplayFor(modelItem => item.Text)
+        </p>
+
+    </div>
 
     }
 

@@ -5,45 +5,46 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
+@if (Model.UserID != Model.Replies.UserID && (Model.User.IsInRole("Moderator") == false))
+{
 
-<h1>Edit</h1>
 
-<h4>Replies</h4>
+<h1 style="color:red"> Permission denied</h1>  }
+            else { 
+<h4>Edit Reply</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Replies.ID" />
-            <div class="form-group">
-                <label asp-for="Replies.ThreadID" class="control-label"></label>
-                <input asp-for="Replies.ThreadID" class="form-control" />
-                <span asp-validation-for="Replies.ThreadID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Replies.UserID" class="control-label"></label>
-                <input asp-for="Replies.UserID" class="form-control" />
-                <span asp-validation-for="Replies.UserID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Replies.Text" class="control-label"></label>
-                <input asp-for="Replies.Text" class="form-control" />
-                <span asp-validation-for="Replies.Text" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Replies.Date" class="control-label"></label>
-                <input asp-for="Replies.Date" class="form-control" />
-                <span asp-validation-for="Replies.Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<form method="post" style="width:100%">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Replies.ID" />
+    <input type="hidden" asp-for="Replies.ThreadID" />
+    <div>
+        <label asp-for="Replies.Text" class="control-label"></label>
+        <textarea asp-for="Replies.Text" class="form-control" style="font-size:18pt;height:420px;width:100%;"> </textarea>
+        <span asp-validation-for="Replies.Text" class="text-danger"></span>
     </div>
-</div>
 
+    @if (Model.User.IsInRole("Moderator") == true)
+    {
+        <div class="form-group">
+            <label asp-for="Replies.Date" class="control-label"></label>
+            <input asp-for="Replies.Date" class="form-control" />
+            <span asp-validation-for="Replies.Date" class="text-danger"></span>
+        </div> }
+    else
+    {
+        <input type="hidden" asp-for="Replies.Date" />
+    }
+    <input type="hidden" asp-for="Replies.UserID" />
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+
+
+</form>
+
+}
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="/Topic/Thread/Details" asp-route-id="@Model.Replies.ThreadID">Back to Thread</a>
 </div>
 
 @section Scripts {

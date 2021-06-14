@@ -9,11 +9,11 @@ using Svetaine.Data;
 using Svetaine.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
-
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace Svetaine.Pages.Topic
 {
+    [Authorize]
     public class DetailsModel : PageModel
     {
         private readonly Svetaine.Data.TopicsContext _context;
@@ -65,9 +65,12 @@ namespace Svetaine.Pages.Topic
 
             threads = threads.Where(s => s.TopicID == id);
 
-            
+            List<Threads> Tlist = new List<Threads>();
 
-            return threads.ToList();
+            Tlist = threads.OrderByDescending(o => o.Pinned).ToList();//pinned sarasai perkeliami i prieki
+
+
+            return Tlist.ToList();
             // throw new NotImplementedException();
         }
 

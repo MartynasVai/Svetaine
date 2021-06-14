@@ -5,8 +5,26 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @if (Model.User.IsInRole("Admin") == true)
+    {
+        <h1 class="display-4">Welcome</h1>
+        <a asp-page="./Topic/Index">Topics</a>
+        <br />
+        <a asp-controller="UserRoles" asp-action="Index"> Manage user roles</a>
+        <br />
+        <a asp-controller="RoleManager" asp-action="Index"> Roles list</a>
+    }
+    else if (Model.User.IsInRole("User") == true)
+    {
+        <h1 class="display-4">Welcome</h1>
+        <a asp-page="./Topic/Index">Topics</a>
+    }
+    else
+    {
+        <h1 class="display-4">Please log in</h1>
+
+    }
+
+
 
 </div>
-<a asp-page="./Topic/Index">Topics</a>

@@ -22,40 +22,69 @@
 </div>
 <div>
     <a asp-page="/Topic/Details" asp-route-id="@Model.Threads.TopicID">Back to Topic</a>
+    @if ((Model.User.IsInRole("Moderator") == true))
+    {
+        <a asp-page="/Topic/Thread/Edit" asp-route-id="@Model.Threads.ID">Edit </a>
+
+    }
 </div>
 
 @* atsakymu rodymas *@
+
 @foreach (var item in Model.RepliesL)
 {
-    <div>
-        <div>
-            <p>
-                <small>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </small>
-                @if ((item.UserID) == Model.UserID || (Model.User.IsInRole("Moderator") == true))
-                {
-            <strong>
-                <a asp-page="./DeleteReply" asp-route-id="@item.ID" style="color:darkred">Delete reply</a>
-            </strong>
-                }
-            </p>
-        </div>
-        <br />
-        <div style="width : 100%; white-space: pre-line">
-            @* White space atributas, kad rodytu teksta su naujomis eilutemis *@
+    <div style="border:1px solid silver;">
+        <p>
+            <small>
+                @Html.DisplayFor(modelItem => item.Date)
+            </small>
+            @if ((item.UserID) == Model.UserID || (Model.User.IsInRole("Moderator") == true))
+            {
+                <strong>
+                    <a asp-page="./DeleteReply" asp-route-id="@item.ID" style="color:darkred">Delete reply</a>|
+                    <a asp-page="./Reply/Edit" asp-route-id="@item.ID">Edit</a>
+                </strong>
+            }
+            <hr />
+        <p style="width : 100%; white-space: pre-line; padding : 0px 1% 0px" ;>
             @Html.DisplayFor(modelItem => item.Text)
-        </div>
+            @* White space atributas, kad rodytu teksta su naujomis eilutemis *@
+        </p>
+
+
     </div>
     <hr />
 
 }
 @* Naujo atsakymo kurimas *@
-<form method="post" style="width:90%">
-    <div>
-        <label asp-for="Replies.Text" class="control-label"></label>
-        <textarea asp-for="Replies.Text" class="form-control" style="font-size:18pt;height:420px;width:100%;"> </textarea>
-        <span asp-validation-for="Replies.Text" class="text-danger"></span>
-        <input type="submit" value="Create" class="btn btn-primary" />
-    </div>
-</form>
+@if (Model.Threads.Locked == false)
+{
+    <form method="post" style="width:100%">
+        <div>
+            <label asp-for="Replies.Text" class="control-label"></label>
+            <textarea asp-for="Replies.Text" class="form-control" style="font-size:18pt;height:200px;width:100%;"> </textarea>
+            <span asp-validation-for="Replies.Text" class="text-danger"></span>
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+}
+else
+{
+    <h2>Thread is locked</h2>
+
+    @if (Model.User.IsInRole("Moderator") == true)//jeigu naudotojas moderatorius leidziama rasyti komentarus
+    {
+        <form method="post" style="width:100%">
+            <div>
+                <label asp-for="Replies.Text" class="control-label"></label>
+                <textarea asp-for="Replies.Text" class="form-control" style="font-size:18pt;height:200px;width:100%;"> </textarea>
+                <span asp-validation-for="Replies.Text" class="text-danger"></span>
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+
+    }
+
+
+
+}
