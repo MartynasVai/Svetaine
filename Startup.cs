@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Svetaine.Services;
 
 namespace Svetaine
 {
@@ -38,6 +40,16 @@ namespace Svetaine
              ////   .AddEntityFrameworkStores<ApplicationDbContext>();//
             services.AddRazorPages();
             services.AddControllersWithViews();
+
+            services.AddAuthentication()
+            .AddGoogle(options =>
+            {
+               IConfigurationSection googleAuthNSection =
+                    Configuration.GetSection("Authentication:Google");
+
+                options.ClientId = googleAuthNSection["ClientId"];
+                options.ClientSecret = googleAuthNSection["ClientSecret"];
+            });
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -77,7 +89,8 @@ namespace Svetaine
             services.AddDbContext<TopicsContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("TopicsContext")));
 
-
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
 
         }
